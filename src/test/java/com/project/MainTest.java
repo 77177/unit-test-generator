@@ -2,10 +2,12 @@ package com.project;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.util.ArrayList;
 
-class MainTest {
+public class MainTest {
 
     @Test
     public void test() {
