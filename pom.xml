@@ -7,6 +7,7 @@
     <groupId>ru.spbstu</groupId>
     <artifactId>unit-test-generator</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <build>
         <plugins>
             <plugin>
