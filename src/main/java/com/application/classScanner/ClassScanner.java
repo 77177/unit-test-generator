@@ -1,4 +1,4 @@
-package com.application.testgenerator.classScanner;
+package com.application.classScanner;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,24 +13,25 @@ import java.util.stream.Stream;
 
 public class ClassScanner {
     private static List<Class> scannedClasses;
-    private static String path;
+    private static String classpath;
 
     public ClassScanner(){
-        this.path = "src/main/java/com/application/testgenerator/examples";
+        classpath = "target/classes";
         scannedClasses = new LinkedList<>();
     }
 
+
+
     public static void scanPath() {
-        //Logger.getLogger("ClassScanner").log(Level.INFO,"Scanning classes in " + path);
-        try (Stream<Path> walk = Files.walk(Paths.get(path))) {
+        try (Stream<Path> walk = Files.walk(Paths.get(classpath))) {
             walk.sorted(Comparator.reverseOrder())
-                    .filter(file -> file.toString().endsWith(".java"))
-                    .map(file -> file.toString().substring(14))
-                    .map(file -> file.substring(0,file.lastIndexOf('.')).replace('\\','.'))
+                    .filter(file -> file.toString().endsWith(".class"))
+                    .map(filepath -> filepath.toString().replace(classpath,""))
+                    .map(s -> s.replace(".class",""))
                     .forEachOrdered(className -> {
                         try {
-                            scannedClasses.add(Class.forName(className));
-                            //Logger.getLogger("ClassScanner").log(Level.INFO,"Added class: " + className);
+                            String classNameString = className.replace("/", ".").substring(1, className.length());
+                            scannedClasses.add(Class.forName(classNameString));
                         } catch (ClassNotFoundException e) {
                             Logger.getLogger("ClassScanner").log(Level.WARNING,"Fail to adding classes: " + e.toString());
                         }
@@ -39,6 +40,7 @@ public class ClassScanner {
             Logger.getLogger("ClassScanner").log(Level.WARNING,"Fail to scanning path: " + e.toString());
         }
     }
+
 
     public static List<Class> getScannedClasses(){
         return scannedClasses;

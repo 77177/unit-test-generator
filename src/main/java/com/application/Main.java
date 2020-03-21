@@ -1,6 +1,6 @@
-package com.application.testgenerator;
+package com.application;
 
-import com.application.testgenerator.classScanner.ClassScanner;
+import com.application.classScanner.ClassScanner;
 
 import java.util.List;
 
