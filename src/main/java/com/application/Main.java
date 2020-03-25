@@ -2,6 +2,8 @@ package com.application;
 
 import com.application.classScanner.ClassScanner;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -21,6 +23,23 @@ public class Main {
         //
         //        }
         //}
+
+        // добавить в сгенерированную заглушку логику теста
+
+//        @Test
+//        void testUpdateCommune() {
+//            // Setup
+//            final Commune group = new Commune();
+//            //когда класс mockGroupService вызывает метод updateCommune с любым аргументом класса Commune, тогда возвращать 0L.
+//            when(mockGroupService.updateCommune(any(Commune.class))).thenReturn(0L);
+//
+//            // Run the test
+//            final Long result = communeControllerUnderTest.updateCommune(group);
+//
+//            // Verify the results
+//            assertEquals(0L, result);
+//        }
+
 
 
     }
