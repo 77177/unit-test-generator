@@ -32,6 +32,8 @@ public class TestDataGenerator {
             f.set(o, (long) (Math.random() * 1000));
         } else if ((f.getType().equals(Double.class)) || (f.getType().equals(Float.class)) || (f.getType().getSimpleName().equals("double")) || (f.getType().getSimpleName().equals("float"))) {
             f.set(o, Math.random() * 1000);
+        } else if ((f.getType().equals(Long.class)) || (f.getType().getSimpleName().equals("long"))) {
+            f.set(o, ((randomGenerator.nextInt(100)) > 50 ? Boolean.TRUE : Boolean.FALSE));
         } else if (f.getType().equals(LocalDate.class)) {
             f.set(o, LocalDate.now());
         } else {
@@ -43,10 +45,10 @@ public class TestDataGenerator {
     public <T> T getTestObject(Class<T> clazz) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 
 
-        if (isPrimitive(clazz)){
+        if (isPrimitive(clazz)) {
             Random randomGenerator = new Random();
             if (clazz.equals(String.class)) {
-                return  (T) Stream.iterate(0, i -> ++i)
+                return (T) Stream.iterate(0, i -> ++i)
                         .limit(20)
                         .map(integer -> randomGenerator.nextInt(64 - 34 + 1))
                         .mapToInt(integer -> integer)
@@ -59,6 +61,8 @@ public class TestDataGenerator {
                 return (T) Long.valueOf((long) (Math.random() * 1000));
             } else if ((clazz.equals(Double.class)) || (clazz.equals(Float.class)) || (clazz.getSimpleName().equals("double")) || (clazz.getSimpleName().equals("float"))) {
                 return (T) Double.valueOf((Math.random() * 1000));
+            } else if (clazz.equals(Boolean.class) || clazz.getSimpleName().equals("boolean")) {
+                return (T) ((randomGenerator.nextInt(100)) > 50 ? Boolean.TRUE : Boolean.FALSE);
             } else if (clazz.equals(LocalDate.class)) {
                 return (T) LocalDate.now();
             }
@@ -79,12 +83,13 @@ public class TestDataGenerator {
         return newInstance;
     }
 
-    public <T> boolean isPrimitive(Class<T> clazz){
+    public <T> boolean isPrimitive(Class<T> clazz) {
         return clazz.equals(String.class) |
                 clazz.equals(Integer.class) |
                 clazz.equals(Float.class) |
                 clazz.equals(Double.class) |
                 clazz.equals(Long.class) |
+                clazz.equals(Boolean.class) |
                 clazz.getSimpleName().equals("int") |
                 clazz.getSimpleName().equals("long") |
                 clazz.getSimpleName().equals("boolean") |

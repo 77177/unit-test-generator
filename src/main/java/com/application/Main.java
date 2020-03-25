@@ -2,8 +2,6 @@ package com.application;
 
 import com.application.classScanner.ClassScanner;
 
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -39,7 +37,6 @@ public class Main {
 //            // Verify the results
 //            assertEquals(0L, result);
 //        }
-
 
 
     }
