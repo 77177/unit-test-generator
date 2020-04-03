@@ -1,4 +1,4 @@
-package com.application.testgenerator.examples;
+package com.application.examples;
 
 public class Triangle {
     private static double a;
