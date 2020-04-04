@@ -1,7 +1,6 @@
 package com.application;
 
 import com.application.classScanner.ClassScanner;
-import com.application.examples.Triangle;
 import com.application.testDataGenerator.TestDataGenerator;
 
 import java.lang.reflect.InvocationTargetException;
