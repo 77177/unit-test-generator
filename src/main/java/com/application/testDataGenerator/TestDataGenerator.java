@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -36,6 +38,10 @@ public class TestDataGenerator {
             f.set(o, ((randomGenerator.nextInt(100)) > 50 ? Boolean.TRUE : Boolean.FALSE));
         } else if (f.getType().equals(LocalDate.class)) {
             f.set(o, LocalDate.now());
+        } else if (f.getType().equals(LocalTime.class)) {
+            f.set(o, LocalTime.now());
+        } else if (f.getType().equals(LocalDateTime.class)) {
+            f.set(o, LocalDateTime.now());
         } else {
             f.set(o, getTestObject(f.getType()));
         }
@@ -65,6 +71,10 @@ public class TestDataGenerator {
                 return (T) ((randomGenerator.nextInt(100)) > 50 ? Boolean.TRUE : Boolean.FALSE);
             } else if (clazz.equals(LocalDate.class)) {
                 return (T) LocalDate.now();
+            } else if (clazz.equals(LocalTime.class)) {
+                return (T) LocalTime.now();
+            } else if (clazz.equals(LocalDateTime.class)) {
+                return (T) LocalDateTime.now();
             }
         }
 
@@ -89,6 +99,9 @@ public class TestDataGenerator {
                 clazz.equals(Float.class) |
                 clazz.equals(Double.class) |
                 clazz.equals(Long.class) |
+                clazz.equals(LocalDate.class) |
+                clazz.equals(LocalTime.class) |
+                clazz.equals(LocalDateTime.class) |
                 clazz.equals(Boolean.class) |
                 clazz.getSimpleName().equals("int") |
                 clazz.getSimpleName().equals("long") |
