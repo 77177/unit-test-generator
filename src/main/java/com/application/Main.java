@@ -4,6 +4,7 @@ import com.application.classScanner.ClassScanner;
 import com.application.testDataGenerator.TestDataGenerator;
 
 import java.lang.reflect.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -103,31 +104,7 @@ public class Main {
             classDesc += "}" + ls;
             classes.add(classDesc);
         }
+
         System.out.println(String.join(ls, classes));
-
-//        @Test
-//        void testUpdateCommune() {
-//            // Setup
-//            final Commune group = new Commune();
-//
-//            // Run the test
-//            communeControllerUnderTest.updateCommune(group);
-//
-//
-//         }
-
-        TestDataGenerator testDataGenerator = new TestDataGenerator();
-        System.out.println(testDataGenerator.getTestObject(String.class));
-
-
-        // добавить в сгенерированную заглушку логику теста
-
-        //1) создаем заглушку +
-        //2) взять параметры метода, который мы тестируем (updateCommune)
-        //3) на основе параметров метода создать логику создания РАНДОМНЫХ обьектов данного классаю (final Commune group = new Commune())
-        //4) после того, как создана логика создания обьектов -> вызвать метод с созданными аргументами. (final Long result = communeControllerUnderTest.updateCommune(group);)
-
-
-
     }
 }
