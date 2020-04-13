@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -108,5 +109,22 @@ public class TestDataGenerator {
                 clazz.getSimpleName().equals("boolean") |
                 clazz.getSimpleName().equals("float") |
                 clazz.getSimpleName().equals("double");
+    }
+
+    public <T> ArrayList<T> getRandomList(Class<T> clazz, int size) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        ArrayList<T> arrayList = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            arrayList.add(getTestObject(clazz));
+        }
+
+        return arrayList;
+    }
+
+    public <T> Object[] getRandomArray(Class<T> clazz, int size) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+
+        ArrayList<T> randomList = getRandomList(clazz, size);
+
+        return randomList.toArray();
     }
 }
