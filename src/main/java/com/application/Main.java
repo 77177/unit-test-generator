@@ -3,7 +3,11 @@ package com.application;
 import com.application.classScanner.ClassScanner;
 import com.application.testDataGenerator.TestDataGenerator;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -102,9 +106,28 @@ public class Main {
             }
             classDesc += String.join(ls, methods);
             classDesc += "}" + ls;
-            classes.add(classDesc);
-        }
 
+            classDesc = "import " + cl.getCanonicalName() + ";" + ls + ls + classDesc;
+
+            classes.add(classDesc);
+
+
+            String baseDir = System.getProperty("user.dir");
+            String middleDir = "src" + File.separator + "test" +
+                    File.separator + "java2";
+            String dir = cl.getCanonicalName().replace(".", File.separator);
+            String filePath = baseDir + File.separator + middleDir + File.separator + dir + "Test.java";
+            File theFile = new File(filePath);
+            File fullDirFile = theFile.getParentFile();
+            if (!fullDirFile.exists()) {
+                fullDirFile.mkdirs();
+            }
+            try (PrintWriter writer = new PrintWriter(filePath, "utf-8")) {
+                writer.print(classDesc);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
         System.out.println(String.join(ls, classes));
     }
 }

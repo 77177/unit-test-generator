@@ -1,5 +1,6 @@
 package com.application.classScanner;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,7 +17,7 @@ public class ClassScanner {
     private static String classpath;
 
     public ClassScanner(){
-        classpath = "target/classes";
+        classpath = "target" + File.separator + "classes";
         scannedClasses = new LinkedList<>();
     }
 
@@ -30,7 +31,7 @@ public class ClassScanner {
                     .map(s -> s.replace(".class",""))
                     .forEachOrdered(className -> {
                         try {
-                            String classNameString = className.replace("/", ".").substring(1, className.length());
+                            String classNameString = className.replace(File.separator, ".").substring(1, className.length());
                             scannedClasses.add(Class.forName(classNameString));
                         } catch (ClassNotFoundException e) {
                             Logger.getLogger("ClassScanner").log(Level.WARNING,"Fail to adding classes: " + e.toString());
