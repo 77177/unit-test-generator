@@ -2,6 +2,7 @@ package com.application;
 
 import com.application.classScanner.ClassScanner;
 import com.application.testDataGenerator.TestDataGenerator;
+import com.application.utils.GenericInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class Main {
         return res + ";" + ls;
     }
 
-    public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public void generateTests(){
         ClassScanner sc = new ClassScanner();
         sc.scanPath();
         List<Class> listClass = sc.getScannedClasses();
@@ -129,5 +130,10 @@ public class Main {
             }
         }
         System.out.println(String.join(ls, classes));
+    }
+
+    public static void main(String[] args) {
+        GenericInfo genericInfo = new GenericInfo();
+        genericInfo.getGenericType();
     }
 }

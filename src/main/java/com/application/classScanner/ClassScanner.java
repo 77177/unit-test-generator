@@ -1,6 +1,7 @@
 package com.application.classScanner;
 
-import java.io.File;
+import lombok.Getter;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,18 +13,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+@Getter
 public class ClassScanner {
-    private static List<Class> scannedClasses;
-    private static String classpath;
+    private List<Class> scannedClasses;
+    private String classpath;
 
     public ClassScanner(){
-        classpath = "target" + File.separator + "classes";
+        classpath = "target/classes";
         scannedClasses = new LinkedList<>();
     }
 
-
-
-    public static void scanPath() {
+    public void scanPath() {
         try (Stream<Path> walk = Files.walk(Paths.get(classpath))) {
             walk.sorted(Comparator.reverseOrder())
                     .filter(file -> file.toString().endsWith(".class"))
@@ -31,7 +31,7 @@ public class ClassScanner {
                     .map(s -> s.replace(".class",""))
                     .forEachOrdered(className -> {
                         try {
-                            String classNameString = className.replace(File.separator, ".").substring(1, className.length());
+                            String classNameString = className.replace("/", ".").substring(1, className.length());
                             scannedClasses.add(Class.forName(classNameString));
                         } catch (ClassNotFoundException e) {
                             Logger.getLogger("ClassScanner").log(Level.WARNING,"Fail to adding classes: " + e.toString());
@@ -42,8 +42,4 @@ public class ClassScanner {
         }
     }
 
-
-    public static List<Class> getScannedClasses(){
-        return scannedClasses;
-    }
 }
