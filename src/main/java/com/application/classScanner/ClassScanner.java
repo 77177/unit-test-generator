@@ -42,4 +42,15 @@ public class ClassScanner {
         }
     }
 
+    public Class getClassByName(String name){
+        scanPath();
+
+        for (Class cl : scannedClasses) {
+            if(cl.getName().contains(name)){
+                return cl;
+            }
+        }
+        return null;
+    }
+
 }

@@ -1,15 +1,13 @@
 package com.application;
 
 import com.application.classScanner.ClassScanner;
-import com.application.testDataGenerator.TestDataGenerator;
 import com.application.utils.GenericInfo;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.*;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -68,7 +66,7 @@ public class Main {
         return res + ";" + ls;
     }
 
-    public void generateTests(){
+    public static void generateTests(){
         ClassScanner sc = new ClassScanner();
         sc.scanPath();
         List<Class> listClass = sc.getScannedClasses();
@@ -133,7 +131,20 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        GenericInfo genericInfo = new GenericInfo();
-        genericInfo.getGenericType();
+        testGetGeneric();
+        //generateTests();
     }
+
+    private static void testGetGeneric(){
+        ClassScanner classScanner = new ClassScanner();
+
+        GenericInfo genericInfo = new GenericInfo();
+        System.out.println("Generic type for 'set' field:" +
+                genericInfo.getFieldGenericType(classScanner.getClassByName("Generics"), "set"));
+
+        System.out.println("Generic types for 'getList' methods:" +
+                genericInfo.getAllMethodGenericTypes(classScanner.getClassByName("Generics"), "setList"));
+    }
+
+
 }
