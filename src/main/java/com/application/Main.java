@@ -1,7 +1,6 @@
 package com.application;
 
 import com.application.classScanner.ClassScanner;
-import com.application.utils.GenericInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -131,20 +130,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        testGetGeneric();
-        //generateTests();
+        generateTests();
     }
-
-    private static void testGetGeneric(){
-        ClassScanner classScanner = new ClassScanner();
-
-        GenericInfo genericInfo = new GenericInfo();
-        System.out.println("Generic type for 'set' field:" +
-                genericInfo.getFieldGenericType(classScanner.getClassByName("Generics"), "set"));
-
-        System.out.println("Generic types for 'getList' methods:" +
-                genericInfo.getAllMethodGenericTypes(classScanner.getClassByName("Generics"), "setList"));
-    }
-
-
 }
