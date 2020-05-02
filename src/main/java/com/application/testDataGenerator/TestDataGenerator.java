@@ -1,9 +1,6 @@
 package com.application.testDataGenerator;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -67,13 +64,13 @@ public class TestDataGenerator {
         String typeName = type.getTypeName();
 
         if (typeName.contains("int")) {
-            f.set(o, Arrays.stream(getRandomArray(Integer.class, 10)).mapToInt(Integer::intValue).toArray());
+            f.set(o, Arrays.stream(getRandomArray(Integer.class, 10)).mapToInt(o1 -> o1).toArray());
         } else if (typeName.contains("long")) {
-            f.set(o, Arrays.stream(getRandomArray(Long.class, 10)).mapToLong(Long::longValue).toArray());
+            f.set(o, Arrays.stream(getRandomArray(Long.class, 10)).mapToLong(o1 -> o1).toArray());
         } else if (typeName.contains("float")) {
             throw new UnsupportedOperationException();
         } else if (typeName.contains("double")) {
-            f.set(o, Arrays.stream(getRandomArray(Double.class, 10)).mapToDouble(Double::doubleValue).toArray());
+            f.set(o, Arrays.stream(getRandomArray(Double.class, 10)).mapToDouble(o1 -> o1).toArray());
         } else if (typeName.contains("char")) {
             f.set(o, getRandomString().toCharArray());
         } else if (typeName.contains("Int")) {
@@ -86,6 +83,8 @@ public class TestDataGenerator {
             f.set(o, getRandomArray(Double.class, 10));
         } else if (typeName.contains("Char")) {
             f.set(o, getRandomString().toCharArray());
+        } else if (typeName.contains("String")) {
+            f.set(o, getRandomArray(String.class, 10));
         }
     }
 
@@ -208,8 +207,12 @@ public class TestDataGenerator {
 
         ArrayList<T> randomList = getRandomList(clazz, size);
 
-        Object[] randomObjects = randomList.toArray();
+        T[] randomArray = (T[]) Array.newInstance(clazz,size);
 
-        return (T[]) randomObjects;
+        for (int i = 0; i < randomList.size(); i++) {
+            randomArray[i] = randomList.get(i);
+        }
+
+        return randomArray;
     }
 }
