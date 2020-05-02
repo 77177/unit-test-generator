@@ -82,7 +82,7 @@ public class TestDataGenerator {
         } else if (typeName.contains("Double")) {
             f.set(o, getRandomArray(Double.class, 10));
         } else if (typeName.contains("Char")) {
-            f.set(o, getRandomString().toCharArray());
+            f.set(o, getRandomString().chars().mapToObj(i -> (char) i).toArray(Character[]::new));
         } else if (typeName.contains("String")) {
             f.set(o, getRandomArray(String.class, 10));
         }
